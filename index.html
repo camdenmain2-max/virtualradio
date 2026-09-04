@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>OpenSDR Web Receiver</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="app">
+
+  <header>
+    <div class="brand">
+      <div class="radio-icon">◉</div>
+      <div>
+        <h1>OpenSDR</h1>
+        <span>WEB SOFTWARE DEFINED RADIO</span>
+      </div>
+    </div>
+
+    <div class="status">
+      <span class="dot"></span>
+      RECEIVER ONLINE
+    </div>
+  </header>
+
+  <main>
+
+    <section class="receiver">
+
+      <div class="receiver-top">
+        <div>
+          <div class="small">CENTER FREQUENCY</div>
+          <div id="freqDisplay" class="frequency">94.700.000</div>
+        </div>
+
+        <div class="receiver-info">
+          <span>SPAN</span>
+          <b id="spanDisplay">63 MHz</b>
+          <span>MODE</span>
+          <b id="modeDisplay">WFM</b>
+        </div>
+      </div>
+
+      <div class="spectrum-wrap">
+
+        <canvas id="spectrum"></canvas>
+
+        <div class="freq-overlay">
+          <span>45</span>
+          <span>55</span>
+          <span>65</span>
+          <span>75</span>
+          <span>85</span>
+          <span>95</span>
+          <span>105</span>
+          <span>108 MHz</span>
+        </div>
+
+        <div id="tuningLine"></div>
+
+      </div>
+
+      <div class="waterfall-wrap">
+        <canvas id="waterfall"></canvas>
+      </div>
+
+      <div class="tuning-controls">
+
+        <button id="downBtn">◀</button>
+
+        <button id="centerBtn">CENTER</button>
+
+        <button id="upBtn">▶</button>
+
+        <label>
+          STEP
+          <select id="stepSelect">
+            <option value="0.001">1 kHz</option>
+            <option value="0.005">5 kHz</option>
+            <option value="0.010">10 kHz</option>
+            <option value="0.025">25 kHz</option>
+            <option value="0.100">100 kHz</option>
+            <option value="1">1 MHz</option>
+          </select>
+        </label>
+
+        <label class="zoom-control">
+          ZOOM
+          <input id="zoom" type="range" min="1" max="12" step=".1" value="1">
+        </label>
+
+      </div>
+
+    </section>
+
+    <aside>
+
+      <section class="panel">
+
+        <h2>RECEIVER</h2>
+
+        <div class="freq-input">
+          <label>FREQUENCY MHz</label>
+          <input id="freqInput" type="number" min="45" max="108"
+                 step="0.001" value="94.700">
+        </div>
+
+        <button id="tuneBtn" class="primary">TUNE RECEIVER</button>
+
+        <div class="section-title">DEMODULATION</div>
+
+        <div class="mode-grid">
+          <button class="mode active" data-mode="WFM">WFM</button>
+          <button class="mode" data-mode="NFM">NFM</button>
+          <button class="mode" data-mode="AM">AM</button>
+          <button class="mode" data-mode="USB">USB</button>
+          <button class="mode" data-mode="LSB">LSB</button>
+          <button class="mode" data-mode="CW">CW</button>
+        </div>
+
+        <div class="section-title">BANDWIDTH</div>
+
+        <select id="bandwidth">
+          <option value="12">12 kHz</option>
+          <option value="25">25 kHz</option>
+          <option value="50">50 kHz</option>
+          <option value="100">100 kHz</option>
+          <option value="200">200 kHz</option>
+        </select>
+
+      </section>
+
+      <section class="panel">
+
+        <h2>AUDIO</h2>
+
+        <div class="meter">
+          <div id="meterBar"></div>
+        </div>
+
+        <div class="audio-row">
+          <button id="listenBtn" class="primary">▶ LISTEN</button>
+          <button id="muteBtn">MUTE</button>
+        </div>
+
+        <label class="slider-label">
+          VOLUME
+          <input id="volume" type="range" min="0" max="1"
+                 value=".7" step=".01">
+        </label>
+
+        <label class="slider-label">
+          SQUELCH
+          <input id="squelch" type="range" min="0" max="1"
+                 value=".05" step=".01">
+        </label>
+
+      </section>
+
+      <section class="panel">
+
+        <h2>BOOKMARKS</h2>
+
+        <div id="stations"></div>
+
+      </section>
+
+      <section class="panel about">
+
+        <h2>SDR INFO</h2>
+
+        <div class="info-row">
+          <span>Range</span>
+          <b>45–108 MHz</b>
+        </div>
+
+        <div class="info-row">
+          <span>Receiver</span>
+          <b>OpenSDR Demo</b>
+        </div>
+
+        <div class="info-row">
+          <span>Audio</span>
+          <b id="audioStatus">Stopped</b>
+        </div>
+
+        <div class="info-row">
+          <span>Signal</span>
+          <b id="signalText">-72 dBm</b>
+        </div>
+
+      </section>
+
+    </aside>
+
+  </main>
+
+  <footer>
+    OpenSDR Web Receiver • HTML5 Canvas + Web Audio
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
