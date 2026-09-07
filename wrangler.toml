@@ -1,0 +1,15 @@
+name = "virtualtx"
+main = "worker/index.js"
+compatibility_date = "2026-09-07"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+
+[[durable_objects.bindings]]
+name = "ROOM"
+class_name = "RadioRoom"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RadioRoom"]

@@ -1,37 +1,32 @@
-# VirtualTX Worker Backend
+# VirtualTX — GitHub + Cloudflare
 
-This is the live signaling backend for the VirtualTX HTML/CSS/JS frontend.
+This package is structured for a Cloudflare Workers Git deployment.
 
-It provides:
-- WebSocket signaling at `/signal`
-- Durable Object rooms
-- Multiple receivers per virtual frequency/mode room
-- Live broadcaster station metadata
-- WebRTC offer/answer/ICE routing
-- Station join/leave notifications
-- `/health` health check
+## Repository layout
 
-## Deploy with GitHub + Cloudflare
+- `worker/index.js` — Worker entry point
+- `public/index.html` — website
+- `public/style.css` — styling
+- `public/app.js` — browser radio client
+- `wrangler.toml` — Cloudflare configuration
 
-Push this folder/repository to GitHub, then import the repository from Cloudflare Workers & Pages as a Worker.
+## Cloudflare
 
-Wrangler should detect:
-- Main file: `worker/index.js`
-- Config: `wrangler.toml`
+Use a Workers project connected to this GitHub repository.
 
-No npm build is required.
+Deploy command:
+`npx wrangler deploy`
 
-## Important frontend change
+The important fix is that `wrangler.toml` points to `worker/index.js`, and that file is actually committed at the repository root.
 
-The current static frontend connects to `/signal` on the same hostname. That works if the HTML/CSS/JS frontend and this Worker are deployed under the same hostname.
+## GitHub
 
-If the frontend is hosted separately (for example, GitHub Pages), change its WebSocket URL from the relative `/signal` endpoint to the full Worker URL, e.g.:
-`wss://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev/signal?room=...`
+Put the CONTENTS of this folder into the GitHub repository (do not put an extra `VirtualTX-GitHub-Cloudflare` folder around them).
 
-The existing frontend currently sends the room in the WebSocket messages, while this backend also supports room routing by URL. For the simplest same-host deployment, the Worker can serve the frontend assets too.
+## What it does
 
-## Limitations
+Virtual frequencies/stations, browser microphone input, internet-stream input, WebRTC audio, station discovery, tuning, modes, and a visual spectrum/waterfall.
 
-This is virtual radio: it does not transmit RF/HD Radio over the air.
+This is a virtual radio system. It does not transmit RF.
 
-Browser microphone access requires HTTPS and user permission. Internet streams are subject to browser codec/CORS restrictions.
+Note: microphone access requires HTTPS. Internet audio streams may be blocked by their server's CORS/browser policies.

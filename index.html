@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>VirtualTX</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>VirtualTX</h1>
+    <span id="online">CONNECTING</span>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Receiver</h2>
+      <div class="row">
+        <input id="freq" type="number" step="0.001" value="101.700">
+        <select id="unit"><option value="mhz">MHz</option><option value="khz">kHz</option></select>
+        <select id="mode">
+          <option>FM</option><option>AM</option><option>USB</option><option>LSB</option>
+          <option>DSB</option><option>CW</option><option>SAM</option>
+        </select>
+        <button id="tune">Tune</button>
+      </div>
+      <div class="presets">
+        <button data-f="101.7" data-u="mhz" data-m="FM">101.7 FM</button>
+        <button data-f="93.3" data-u="mhz" data-m="FM">93.3 FM</button>
+        <button data-f="7000" data-u="khz" data-m="USB">7.000 USB</button>
+      </div>
+      <canvas id="spec"></canvas>
+      <canvas id="water"></canvas>
+      <div id="rx">NO SIGNAL</div>
+      <label>Volume <input id="vol" type="range" min="0" max="150" value="100"></label>
+    </section>
+
+    <section class="card">
+      <h2>Transmit</h2>
+      <input id="name" placeholder="Your name" value="Operator">
+      <input id="station" placeholder="Station name" value="VirtualTX Station">
+      <div class="row">
+        <input id="txfreq" type="number" step="0.001" value="101.700">
+        <select id="txunit"><option value="mhz">MHz</option><option value="khz">kHz</option></select>
+        <select id="txmode"><option>FM</option><option>AM</option><option>USB</option><option>LSB</option></select>
+      </div>
+      <select id="source">
+        <option value="mic">Microphone</option>
+        <option value="stream">Internet stream</option>
+      </select>
+      <div id="micwrap"><select id="mic"></select></div>
+      <div id="streamwrap" class="hide">
+        <input id="streamurl" placeholder="https://example.com/stream">
+      </div>
+      <label>TX gain <input id="gain" type="range" min="0" max="150" value="100"></label>
+      <div class="row">
+        <button id="start">GO ON AIR</button>
+        <button id="stop" disabled>STOP</button>
+      </div>
+      <div id="txstate">STOPPED</div>
+    </section>
+
+    <section class="card">
+      <h2>Stations</h2>
+      <div id="list">No stations yet.</div>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
